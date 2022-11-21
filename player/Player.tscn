@@ -1,9 +1,15 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=16 format=2]
 
 [ext_resource path="res://assets/snail/snail_0.png" type="Texture" id=1]
 [ext_resource path="res://assets/snail/snail_1.png" type="Texture" id=2]
 [ext_resource path="res://assets/snail/snail_2.png" type="Texture" id=3]
 [ext_resource path="res://player/Player.gd" type="Script" id=4]
+[ext_resource path="res://assets/dice/four.png" type="Texture" id=5]
+[ext_resource path="res://assets/dice/six.png" type="Texture" id=6]
+[ext_resource path="res://assets/dice/three.png" type="Texture" id=7]
+[ext_resource path="res://assets/dice/one.png" type="Texture" id=8]
+[ext_resource path="res://assets/dice/two.png" type="Texture" id=9]
+[ext_resource path="res://assets/dice/five.png" type="Texture" id=10]
 
 [sub_resource type="CapsuleShape2D" id=1]
 radius = 8.0
@@ -17,6 +23,76 @@ animations = [ {
 "speed": 5.0
 } ]
 
+[sub_resource type="SpriteFrames" id=3]
+animations = [ {
+"frames": [ ExtResource( 10 ) ],
+"loop": true,
+"name": "Five",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 5 ) ],
+"loop": true,
+"name": "Four",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 8 ), ExtResource( 8 ) ],
+"loop": true,
+"name": "One",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 8 ), ExtResource( 9 ), ExtResource( 6 ), ExtResource( 10 ), ExtResource( 5 ), ExtResource( 7 ) ],
+"loop": true,
+"name": "Roll",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 6 ) ],
+"loop": true,
+"name": "Six",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 7 ) ],
+"loop": true,
+"name": "Three",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 9 ) ],
+"loop": true,
+"name": "Two",
+"speed": 5.0
+} ]
+
+[sub_resource type="Animation" id=4]
+resource_name = "DiceRoll"
+length = 2.0
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Dice:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5, 1, 1.5 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 0, 0 ), Vector2( 0, -1 ), Vector2( 0, 0 ), Vector2( 0, 1 ) ]
+}
+
+[sub_resource type="Animation" id=5]
+resource_name = "Selected"
+tracks/0/type = "value"
+tracks/0/path = NodePath("Dice:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 1 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ "Six" ]
+}
+
 [node name="Player" type="KinematicBody2D"]
 scale = Vector2( 5, 5 )
 script = ExtResource( 4 )
@@ -27,7 +103,20 @@ rotation = 1.5708
 shape = SubResource( 1 )
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+position = Vector2( 0, 1 )
 frames = SubResource( 2 )
 animation = "movement"
 frame = 1
 playing = true
+
+[node name="Dice" type="AnimatedSprite" parent="."]
+position = Vector2( 0, 0.863814 )
+scale = Vector2( 0.25, 0.25 )
+frames = SubResource( 3 )
+animation = "Roll"
+playing = true
+offset = Vector2( 0, -100 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/DiceRoll = SubResource( 4 )
+anims/Selected = SubResource( 5 )
