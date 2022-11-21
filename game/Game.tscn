@@ -1,9 +1,18 @@
 [gd_scene load_steps=2 format=2]
 
-[ext_resource path="res://player/Player.tscn" type="PackedScene" id=1]
+[ext_resource path="res://game/Game.gd" type="Script" id=2]
 
 [node name="Game" type="Node2D"]
 position = Vector2( 59, 78 )
+script = ExtResource( 2 )
 
-[node name="Player" parent="." instance=ExtResource( 1 )]
-position = Vector2( 88, 61 )
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="TurnTime" type="Label" parent="CanvasLayer"]
+margin_right = 40.0
+margin_bottom = 14.0
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 3.0
+
+[connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]
