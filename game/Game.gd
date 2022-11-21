@@ -83,21 +83,21 @@ func set_dice_anim(p, roll):
 
 	"""
 
-		var anim = p.get_node("Dice")
+	var anim = p.get_node("Dice")
 
 
-		# TODO: Start partical selection thing
+	# TODO: Start partical selection thing
 
-		match roll:
-			1:
-				anim.animation = "One"
-			2:
-				anim.animation = "Two"
-			3:
-				anim.animation = "Three"
-			4:
-				anim.animation = "Four"
-			5:
-				anim.animation = "Five"
-			6:
-				anim.animation = "Six"
+	match roll:
+		1:
+			anim.animation = "One"
+		2:
+			anim.animation = "Two"
+		3:
+			anim.animation = "Three"
+		4:
+			anim.animation = "Four"
+		5:
+			anim.animation = "Five"
+		6:
+			anim.animation = "Six"
