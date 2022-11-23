@@ -4,12 +4,15 @@ var player
 var bot 
 var all_players = []
 
+# Index is player ID
+var previous_rolls = []
+
 func _ready():
 	# Seeding
 	randomize()
 
 	# Load initial snail scene
-	var snail = preload("../player/player.tscn")
+	var snail = preload("../player/Player.tscn")
 
 	player = snail.instance()
 	bot = snail.instance()
@@ -20,10 +23,14 @@ func _ready():
 	# Loop for all 4 players/bots
 	player.position.x = 80
 	player.position.y = 80
+	player.id = 0
+	previous_rolls.append(-1)
 
 	bot.position.x = 80
 	bot.position.y = 280
 	bot.is_bot = true
+	bot.id = 1
+	previous_rolls.append(-1)
 
 	for p in all_players:
 		add_child(p)
@@ -40,13 +47,22 @@ func _physics_process(_delta):
 	$CanvasLayer/TurnTime.text = str($Timer.time_left)
 
 	for p in all_players:
-		var roll = dice_roll()
 
 		# make sure we only run initial button press each turn
 		if p.velocity != Vector2.ZERO:
+			# Get current and previous roll for player ID
+			var previous_roll = previous_rolls[p.id]		
+			var roll = dice_roll()
+		
+			# Save past roll
+			previous_rolls[p.id] = roll		
+		
 			set_dice_anim(p, roll)
+					
+			if previous_roll == roll:
+				roll *= 2
 
-		p.velocity = p.move_and_slide(p.velocity * (p.speed * roll))
+			p.velocity = p.move_and_slide(p.velocity * (p.speed * roll))
 
 
 # TODO: Probably need to renamed
@@ -59,8 +75,8 @@ func _on_Timer_timeout():
 		var anim = p.get_node("Dice")
 		anim.animation = "Roll"
 		
-
-
+		
+# Dice Roll returns the value of the roll and whether it was doubled or not
 func dice_roll(size: int=6) -> int:
 	""" Generate a random number between 1 and dice size
 	Args:
@@ -69,6 +85,7 @@ func dice_roll(size: int=6) -> int:
 	  place
 
 	"""
+	
 	return randi()%size+1
 
 

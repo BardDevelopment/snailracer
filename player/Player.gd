@@ -1,9 +1,9 @@
 extends KinematicBody2D
 
+export (int) var id
 export (bool) var is_bot = false
 export (int) var speed = 100
 export (bool) var pressed = true
-
 
 var velocity := Vector2()
 
@@ -37,4 +37,3 @@ func _physics_process(_delta):
 		bot_input()
 	else:
 		get_input()
-
