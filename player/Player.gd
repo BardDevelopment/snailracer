@@ -7,6 +7,10 @@ export (bool) var pressed = true
 
 var velocity := Vector2()
 
+func _ready() -> void:
+	if not is_bot:
+		$Camera2D.current = true
+
 # bot input
 func bot_input():
 
