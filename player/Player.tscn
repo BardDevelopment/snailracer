@@ -106,15 +106,14 @@ shape = SubResource( 1 )
 position = Vector2( 0, 1 )
 frames = SubResource( 2 )
 animation = "movement"
-frame = 2
 playing = true
 
 [node name="Dice" type="AnimatedSprite" parent="."]
-position = Vector2( -0.485965, 0.135388 )
+position = Vector2( -0.497536, 0.0526727 )
 scale = Vector2( 0.25, 0.25 )
 frames = SubResource( 3 )
 animation = "Roll"
-frame = 4
+frame = 2
 playing = true
 offset = Vector2( 0, -100 )
 
