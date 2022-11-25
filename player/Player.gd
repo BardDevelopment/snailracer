@@ -21,6 +21,7 @@ func bot_input():
 	if not pressed:
 		pressed = true
 		velocity.x += 1
+		$TrailParticals.emitting = true
 
 	velocity = velocity.normalized()
 	# velocity = velocity.normalized() * speed
@@ -33,6 +34,7 @@ func get_input():
 	if Input.is_action_just_pressed("move") and not pressed:
 		pressed = true
 		velocity.x += 1
+		$TrailParticals.emitting = true
 
 	velocity = velocity.normalized()
 	# velocity = velocity.normalized() * speed
