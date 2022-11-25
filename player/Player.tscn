@@ -67,7 +67,7 @@ length = 2.0
 loop = true
 tracks/0/type = "value"
 tracks/0/path = NodePath("Dice:position")
-tracks/0/interp = 1
+tracks/0/interp = 2
 tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -75,7 +75,7 @@ tracks/0/keys = {
 "times": PoolRealArray( 0, 0.5, 1, 1.5 ),
 "transitions": PoolRealArray( 1, 1, 1, 1 ),
 "update": 0,
-"values": [ Vector2( 0, 0 ), Vector2( 0, -1 ), Vector2( 0, 0 ), Vector2( 0, 1 ) ]
+"values": [ Vector2( -0.5, 0 ), Vector2( 0, -1 ), Vector2( 0.5, 0 ), Vector2( 0, 1 ) ]
 }
 
 [sub_resource type="Animation" id=5]
@@ -110,11 +110,10 @@ frame = 1
 playing = true
 
 [node name="Dice" type="AnimatedSprite" parent="."]
-position = Vector2( 0, 0.764619 )
+position = Vector2( 0.0251278, 0.995492 )
 scale = Vector2( 0.25, 0.25 )
 frames = SubResource( 3 )
 animation = "Roll"
-frame = 3
 playing = true
 offset = Vector2( 0, -100 )
 
@@ -123,4 +122,4 @@ anims/DiceRoll = SubResource( 4 )
 anims/Selected = SubResource( 5 )
 
 [node name="Camera2D" type="Camera2D" parent="."]
-position = Vector2( 160, 0 )
+position = Vector2( 180, 0 )

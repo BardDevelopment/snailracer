@@ -1,8 +1,15 @@
 extends Node2D
 
+export var max_players = 4
+export var num_of_bots = 3
+
+var num_of_players = max_players - num_of_bots
+
 var player 
 var bot 
 var all_players = []
+
+var start_pos := Vector2(80, 259)
 
 # Index is player ID
 var previous_rolls = []
@@ -14,23 +21,22 @@ func _ready():
 	# Load initial snail scene
 	var snail = preload("../player/Player.tscn")
 
-	player = snail.instance()
-	bot = snail.instance()
-
-	all_players.append(player)
-	all_players.append(bot)
-
 	# Loop for all 4 players/bots
-	player.position.x = 80
-	player.position.y = 80
-	player.id = 0
-	previous_rolls.append(-1)
+	for i in range(0, max_players):
+		var snail_racer = snail.instance()
+		all_players.append(snail_racer)
+		snail_racer.id = i
+		
+		previous_rolls.append(-1)
+		snail_racer.position = start_pos
 
-	bot.position.x = 80
-	bot.position.y = 280
-	bot.is_bot = true
-	bot.id = 1
-	previous_rolls.append(-1)
+		# Next start position is 64 pixels down
+		# Probably should get this from tilemap or something
+		start_pos.y += 64
+
+	# set bots
+	for i in range(0, num_of_bots):
+		all_players[i].is_bot = true
 
 	for p in all_players:
 		add_child(p)
