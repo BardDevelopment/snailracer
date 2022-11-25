@@ -7,6 +7,12 @@ export (bool) var pressed = true
 
 var velocity := Vector2()
 
+func _ready() -> void:
+	# TODO: kinda a problem for more than one player 
+	# consider a split screen?
+	if not is_bot:
+		$Camera2D.current = true
+
 # bot input
 func bot_input():
 
@@ -15,6 +21,7 @@ func bot_input():
 	if not pressed:
 		pressed = true
 		velocity.x += 1
+		$TrailParticals.emitting = true
 
 	velocity = velocity.normalized()
 	# velocity = velocity.normalized() * speed
@@ -27,6 +34,7 @@ func get_input():
 	if Input.is_action_just_pressed("move") and not pressed:
 		pressed = true
 		velocity.x += 1
+		$TrailParticals.emitting = true
 
 	velocity = velocity.normalized()
 	# velocity = velocity.normalized() * speed
