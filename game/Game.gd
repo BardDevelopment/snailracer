@@ -9,7 +9,8 @@ var player
 var bot 
 var all_players = []
 
-var start_pos := Vector2(80, 259)
+# var start_pos := Vector2(80, 259)
+var start_pos := Vector2(0, 259)
 
 # Index is player ID
 var previous_rolls = []
