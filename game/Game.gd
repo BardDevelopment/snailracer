@@ -1,7 +1,8 @@
 extends Node2D
 
-export var max_players = 4
-export var num_of_bots = 3
+const num_of_bots = 3
+const max_players = 4
+
 
 var num_of_players = max_players - num_of_bots
 
@@ -43,6 +44,9 @@ func _ready():
 	for i in range(0, num_of_bots):
 		all_players[i].is_bot = true
 
+	# should be removed
+	player = all_players[3]
+
 	for p in all_players:
 		add_child(p)
 
@@ -68,7 +72,12 @@ func _physics_process(_delta):
 			# Save past roll
 			previous_rolls[p.id] = roll		
 		
-			set_dice_anim(p, roll)
+			set_dice_anim(p.get_node("Dice"), roll)
+			if not p.is_bot:
+				set_dice_anim($"CanvasLayer/DiceCombo/LastRoll", 
+					previous_roll)
+				set_dice_anim($"CanvasLayer/DiceCombo/CurrentRoll",
+					roll)
 					
 			if previous_roll == roll:
 				roll *= 2
@@ -100,7 +109,7 @@ func dice_roll(size: int=6) -> int:
 	return randi()%size+1
 
 
-func set_dice_anim(p, roll):
+func set_dice_anim(anim, roll):
 	""" set_dice_anim sets the animation to play when selecting 
 	face value of the die.
 
@@ -110,9 +119,6 @@ func set_dice_anim(p, roll):
 	  roll: what value to stop on the die
 
 	"""
-
-	var anim = p.get_node("Dice")
-
 
 	# TODO: Start partical selection thing
 
