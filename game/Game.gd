@@ -13,7 +13,8 @@ var all_players = []
 var finished_place = []
 
 # var start_pos := Vector2(80, 259)
-var start_pos := Vector2(0, 259)
+# var start_pos := Vector2(0, 259)
+var start_pos := Vector2(0, 149)
 
 # Index is player ID
 var previous_rolls = []
