@@ -9,6 +9,9 @@ var player
 var bot 
 var all_players = []
 
+# var place = []
+var finished_place = []
+
 # var start_pos := Vector2(80, 259)
 var start_pos := Vector2(0, 259)
 
@@ -44,7 +47,7 @@ func _ready():
 
 		var anim = p.get_node("AnimationPlayer")
 		anim.play("DiceRoll")
-	
+
 	$Timer.start()
 
 
@@ -125,3 +128,11 @@ func set_dice_anim(p, roll):
 			anim.animation = "Five"
 		6:
 			anim.animation = "Six"
+
+
+
+func _on_finished_race(id: int) -> void:
+	finished_place.append(id)
+
+	if len(finished_place) == max_players:
+		print(finished_place)
