@@ -1,5 +1,6 @@
 extends KinematicBody2D
 
+
 export (int) var id
 export (bool) var is_bot = false
 export (int) var speed = 100

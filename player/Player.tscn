@@ -13,7 +13,7 @@
 
 [sub_resource type="CapsuleShape2D" id=1]
 radius = 8.0
-height = 28.0
+height = 22.0
 
 [sub_resource type="SpriteFrames" id=2]
 animations = [ {
@@ -95,7 +95,9 @@ tracks/0/keys = {
 
 [node name="Player" type="KinematicBody2D"]
 scale = Vector2( 2, 2 )
+z_index = 5
 script = ExtResource( 4 )
+speed = 1000
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2( 0, -8 )
@@ -111,9 +113,10 @@ playing = true
 [node name="Dice" type="AnimatedSprite" parent="."]
 position = Vector2( -0.497536, 0.0526727 )
 scale = Vector2( 0.25, 0.25 )
+z_index = 100
 frames = SubResource( 3 )
 animation = "Roll"
-frame = 2
+frame = 5
 playing = true
 offset = Vector2( 0, -100 )
 
@@ -123,6 +126,11 @@ anims/Selected = SubResource( 5 )
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2( 180, 0 )
+z_index = 2
+limit_left = 0
+limit_top = 0
+limit_right = 1300
+limit_bottom = 600
 
 [node name="TrailParticals" type="CPUParticles2D" parent="."]
 position = Vector2( -16.5, -1 )
@@ -145,3 +153,5 @@ scale_amount_random = 1.0
 color = Color( 0.870588, 0.619608, 0.254902, 1 )
 hue_variation = -0.13
 hue_variation_random = 1.0
+
+[connection signal="child_entered_tree" from="CollisionShape2D" to="." method="_on_CollisionShape2D_child_entered_tree"]
